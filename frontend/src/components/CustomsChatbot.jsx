@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
+import { getBrowserApiKey } from "../utils/browserApiKey.js";
 
 /* ─── Groq config (mirrors backend/config.py) ─── */
-const GROQ_API_KEY  = import.meta.env.VITE_GROQ_API_KEY || "";
 const GROQ_BASE_URL = "https://api.groq.com/openai/v1";
 const GROQ_MODEL    = "llama-3.3-70b-versatile";
 
@@ -53,6 +53,19 @@ export default function CustomsChatbot() {
   const sendMessage = async (text) => {
     const content = (text || input).trim();
     if (!content || loading) return;
+    const browserApiKey = getBrowserApiKey();
+
+    if (!browserApiKey) {
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "assistant",
+          content:
+            "⚠️ No API key found. Please set your key in the API Key (Browser-Only) panel before using chat."
+        }
+      ]);
+      return;
+    }
 
     const userMsg      = { role: "user", content };
     const nextMessages = [...messages, userMsg];
@@ -70,7 +83,7 @@ export default function CustomsChatbot() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${GROQ_API_KEY}`,
+          "Authorization": `Bearer ${browserApiKey}`,
         },
         body: JSON.stringify({
           model: GROQ_MODEL,
