@@ -280,6 +280,21 @@ body::after {
 }
 
 select.input { cursor: pointer; }
+:root:not([data-theme='light']) select.input { color-scheme: dark; }
+:root[data-theme='light'] select.input { color-scheme: light; }
+
+/* Keep native dropdown option lists readable across browsers/themes */
+select.input option,
+select.input optgroup {
+  background: var(--bg-panel);
+  color: var(--text);
+}
+
+:root[data-theme='light'] select.input option,
+:root[data-theme='light'] select.input optgroup {
+  background: #ffffff;
+  color: var(--text);
+}
 
 /* ─────────────────────────────────────────
    HEADER
