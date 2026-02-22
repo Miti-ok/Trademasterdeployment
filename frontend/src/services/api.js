@@ -40,17 +40,17 @@ export const analyzeProduct = async (payload, options = {}) => {
       }
     : undefined
 
-  const response = await api.post('/analyze', payload, requestConfig)
+  const response = await api.post('/analyze/', payload, requestConfig)
   return unwrap(response)
 }
 
 export const recalculateTariffs = async (payload) => {
-  const response = await api.post('/recalculate', payload)
+  const response = await api.post('/recalculate/', payload)
   return unwrap(response)
 }
 
 export const generateReport = async (payload) => {
-  const response = await api.post('/generate-report', payload)
+  const response = await api.post('/generate-report/', payload)
   return unwrap(response)
 }
 
