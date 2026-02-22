@@ -1,7 +1,22 @@
 import axios from 'axios'
 
+const DEFAULT_PROD_API_BASE_URL = 'https://trademasterdeployment-production.up.railway.app'
+
+const resolveBaseUrl = () => {
+  const envBaseUrl = String(import.meta.env.VITE_API_BASE_URL || '').trim()
+  if (envBaseUrl) {
+    return envBaseUrl
+  }
+
+  if (import.meta.env.PROD) {
+    return DEFAULT_PROD_API_BASE_URL
+  }
+
+  return 'http://localhost:8000'
+}
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000',
+  baseURL: resolveBaseUrl(),
   timeout: 120000
 })
 
