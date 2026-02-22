@@ -30,7 +30,8 @@ For preview + production domains, use comma-separated values:
 2. Set:
 - Root Directory: `frontend`
 - Framework Preset: `Vite`
-- Build and output are already defined in `frontend/vercel.json`.
+- Build command: `npm run build`
+- Output directory: `dist`
 
 3. Add frontend environment variable:
 - `VITE_API_BASE_URL=https://your-backend.up.railway.app`
