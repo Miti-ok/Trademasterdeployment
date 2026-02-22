@@ -21,3 +21,14 @@ VISION_FALLBACK_MODEL = os.getenv(
     "meta-llama/llama-4-maverick-17b-128e-instruct"
 )
 USE_REAL_AI = True
+
+# CORS
+_raw_cors_origins = os.getenv("CORS_ORIGINS", "*")
+if _raw_cors_origins.strip() == "*":
+    CORS_ORIGINS = ["*"]
+else:
+    CORS_ORIGINS = [
+        origin.strip()
+        for origin in _raw_cors_origins.split(",")
+        if origin.strip()
+    ] or ["*"]
